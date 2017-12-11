@@ -30,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 初始化iv_pre控件
         iv_pre = (ImageView) findViewById(R.id.iv_pre);
 
-        // 加载院团
+        // 加载原图
         Bitmap bitmap_src = BitmapFactory.decodeResource(this.getResources(), R.drawable.pre19);
 
-        // 创建原图的副本
+        // 创建原图的副本，可以用来作画
         mBitmap_copy = Bitmap.createBitmap(bitmap_src.getWidth(), bitmap_src.getHeight(),
                 bitmap_src.getConfig());
         Canvas mCanvas = new Canvas(mBitmap_copy);
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         // 将副本加载到iv_pre上
         iv_pre.setImageBitmap(mBitmap_copy);
 
-        // 设置iv_pre的触摸事件，所到之处变透明
+        // 设置iv_pre的触摸事件，让手指所到之处变透明，显示出底层图片即可
         iv_pre.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -63,15 +64,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        // 图片做了改变，需要更新到iv_pre控件上
                         iv_pre.setImageBitmap(mBitmap_copy);
                         break;
                 }
                 return true;
             }
         });
-
-
     }
-
-
 }
